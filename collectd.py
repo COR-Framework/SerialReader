@@ -42,7 +42,10 @@ class Collectd(CORModule):
 					for val in lines:
 						if ("found" not in val) and val is not "":
 							(n, s, d) = val.partition("=")
-							vals_to_send[stype+"/"+n] = float(d)
+							try:
+								vals_to_send[stype+"/"+n] = float(d)
+							except Exception:
+								pass
 			reading = SensorReading()
 			reading.location = self.location
 			reading.timestamp = int(time.time())
